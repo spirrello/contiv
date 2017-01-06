@@ -1,0 +1,6 @@
+---
+
+- hosts: control_node
+  gather_facts: yes
+  roles:
+    - control_node

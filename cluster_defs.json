@@ -1,0 +1,5 @@
+{"master": [{"name": "vm7-8", "management_ip": "192.168.122.108", "contiv_control_if": "eth1", "contiv_control_ip": "192.168.123.108", "contiv_network_if": "eth2", "contiv_network_ip": "192.168.124.108"}],
+ "nodes" : [{"name": "vm7-7", "management_ip": "192.168.122.107", "contiv_control_if": "eth1", "contiv_control_ip": "192.168.123.107", "contiv_network_if": "eth2", "contiv_network_ip": "192.168.124.107", "max_pods": "40"},
+            {"name": "vm7-9", "management_ip": "192.168.122.109", "contiv_control_if": "eth1", "contiv_control_ip": "192.168.123.109", "contiv_network_if": "eth2", "contiv_network_ip": "192.168.124.109", "max_pods": "40"},
+            {"name": "vm7-10", "management_ip": "192.168.122.110", "contiv_control_if": "eth1", "contiv_control_ip": "192.168.123.110", "contiv_network_if": "eth2", "contiv_network_ip": "192.168.124.110", "max_pods": "40"}]
+}
