@@ -1,5 +1,9 @@
 ---
 
+- hosts: cluster
+  become: yes
+  gather_facts: yes
+
 - hosts: control_node
   become: yes
   gather_facts: yes

@@ -3,4 +3,4 @@
 user_account: spirrell
 
 
-control_node_var: 192.168.122.101
+control_node: vm7-1
