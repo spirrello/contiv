@@ -16,20 +16,20 @@
   template: src=roles/control_node/templates/hosts dest=/etc/hosts
 
 
-- user:
-    name: "{{user_account}}"
-    generate_ssh_key: yes
-    ssh_key_bits: 2048
-    ssh_key_file: .ssh/id_rsa
+# - user:
+#     name: "{{user_account}}"
+#     generate_ssh_key: yes
+#     ssh_key_bits: 2048
+#     ssh_key_file: .ssh/id_rsa
 
-- name: Downloading pub key
-  fetch: src=/home/{{user_account}}/.ssh/id_rsa.pub dest=roles/control_node/templates/id_rsa.tmp flat=yes
+# - name: Downloading pub key
+#   fetch: src=/home/{{user_account}}/.ssh/id_rsa.pub dest=roles/control_node/templates/id_rsa.tmp flat=yes
 
-- name: Copying local key to workers
-  local_action: shell cat roles/control_node/templates/id_rsa.tmp | ssh {{user_account}}@{{item}} "cat >> /home/{{user_account}}/.ssh/authorized_keys"
-  with_items: "{{groups['workers']}}"
+# - name: Copying local key to workers
+#   local_action: shell cat roles/control_node/templates/id_rsa.tmp | ssh {{user_account}}@{{item}} "cat >> /home/{{user_account}}/.ssh/authorized_keys"
+#   with_items: "{{groups['workers']}}"
 
-- name: Deleting temporal files
-  local_action: file  path=roles/control_node/templates/id_rsa.tmp state=absent
+# - name: Deleting temporal files
+#   local_action: file  path=roles/control_node/templates/id_rsa.tmp state=absent
 
 
