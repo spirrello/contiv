@@ -1,4 +1,7 @@
-{"master": [{"name": "{{control_node}}", "management_ip": "192.168.122.108", "contiv_control_if": "eth1", "contiv_control_ip": "192.168.123.108", "contiv_network_if": "eth2", "contiv_network_ip": "192.168.124.108"}],
+{% for host in groups['control_node'] %}
+{"master": [{"name": "{{control_node}}", "management_ip": "{{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}", "contiv_control_if": "eth1", "contiv_control_ip": "{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}", "contiv_network_if": "eth2", "contiv_network_ip": "{{ hostvars[host]['ansible_eth2']['ipv4']['address'] }}"}]
+{% endfor %}
+,
 "nodes" : [
 {% for host in groups['workers'] %}
 {"name": "{{ host }}", "management_ip": "{{ hostvars[host]['ansible_eth0']['ipv4']['address'] }}", "contiv_control_if": "eth1", "contiv_control_ip": "{{ hostvars[host]['ansible_eth1']['ipv4']['address'] }}", "contiv_network_if": "eth2", "contiv_network_ip": "{{ hostvars[host]['ansible_eth2']['ipv4']['address'] }}", "max_pods": "40"}

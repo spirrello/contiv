@@ -9,9 +9,9 @@
 - name: Downloading pub key
   fetch: src=/home/{{user_account}}/.ssh/id_rsa.pub dest=roles/control_node/templates/id_rsa.tmp flat=yes
 
-- name: Copying local key to workers
+- name: Copying local key to cluster
   local_action: shell cat roles/control_node/templates/id_rsa.tmp | ssh {{user_account}}@{{item}} "cat >> /home/{{user_account}}/.ssh/authorized_keys"
-  with_items: "{{groups['workers']}}"
+  with_items: "{{groups['cluster']}}"
 
 - name: Deleting temporal files
   local_action: file  path=roles/control_node/templates/id_rsa.tmp state=absent
