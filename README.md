@@ -2,12 +2,21 @@
 
 
 Instructions
-- Add additional NICs to entire cluster.  Each node should have 3 total nics according to the documentation found here:
+1.) Add additional NICs to entire cluster.  Each node should have 3 total nics according to the documentation found here:
 http://contiv.github.io/documents/gettingStarted/networking/install-k8s.html
-- Run the install_control_node playbook.
-- Run install_sshkeys playbook without -K but with -k.  Make sure the control_node has gone through the process for itself.
-- Comment out block that begins on line 54 in contiv/k8s/prepare.yml.
-- Begin Contiv installation:
+Example:
+Add NICS
+virsh attach-interface --domain vm7-1 --type bridge --source virbr1 --model virtio --config --live
+virsh attach-interface --domain vm7-1 --type bridge --source virbr2 --model virtio --config --live
+
+
+2.) Run the install_control_node playbook.
+
+3.) Run install_sshkeys playbook without -K but with -k.  Make sure the control_node has gone through the process for itself.
+
+4.) Comment out block that begins on line 54 in contiv/k8s/prepare.yml.
+
+5.) Begin Contiv installation:
 http://contiv.github.io/documents/gettingStarted/networking/install-k8s.html
 
 
