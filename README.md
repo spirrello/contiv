@@ -2,6 +2,7 @@
 
 
 Instructions
+
 1.) Add additional NICs to entire cluster.  Each node should have 3 total nics according to the documentation found here:
 http://contiv.github.io/documents/gettingStarted/networking/install-k8s.html
 Example:
