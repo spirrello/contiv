@@ -25,9 +25,9 @@ http://contiv.github.io/documents/gettingStarted/networking/install-k8s.html
 
 Run the following from the control node:
 
-- ./prepare.sh <login_userid>
-- ./setup_k8s_cluster.sh <login_userid>
-- ./verify_cluster.sh <login_userid> 
+- ./prepare.sh user_account
+- ./setup_k8s_cluster.sh user_account
+- ./verify_cluster.sh user_account
 
 
 
@@ -38,3 +38,8 @@ This playbook prepares the control for deploying Contiv.  It installs the necess
 
 install_sshkeys.yml:
 This play book generates ssh keys for "user_account" on the "control_node" and distributes them across the workers.
+
+
+
+Requirements:
+Clean Centos 7 Install with yum update completed.
