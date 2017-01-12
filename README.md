@@ -17,7 +17,11 @@ virsh attach-interface --domain vm7-1 --type bridge --source virbr2 --model virt
 
 4.) Comment out block that begins on line 54 in contiv/k8s/prepare.yml.
 
-5.) Begin Contiv installation:
+5.) TEMPORARY
+Comment out Fluentd section on:
+contrib/ansible/roles/node/tasks/main.yml
+
+6.) Begin Contiv installation:
 http://contiv.github.io/documents/gettingStarted/networking/install-k8s.html
 
 
