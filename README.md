@@ -29,6 +29,8 @@ Run the following from the control node:
 - ./setup_k8s_cluster.sh <login_userid>
 - ./verify_cluster.sh <login_userid> 
 
+asdfasdf
+
 
 Playbooks
 
