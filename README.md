@@ -24,6 +24,11 @@ contrib/ansible/roles/node/tasks/main.yml
 6.) Begin Contiv installation:
 http://contiv.github.io/documents/gettingStarted/networking/install-k8s.html
 
+Run the following from the control node:
+
+- ./prepare.sh <login_userid>
+- ./setup_k8s_cluster.sh <login_userid>
+- ./verify_cluster.sh <login_userid> 
 
 
 Playbooks
