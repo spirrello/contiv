@@ -9,6 +9,24 @@ Add NICS
 virsh attach-interface --domain vm7-1 --type bridge --source virbr1 --model virtio --config --live
 virsh attach-interface --domain vm7-1 --type bridge --source virbr2 --model virtio --config --live
 
+virsh attach-interface --domain vm7-2 --type bridge --source virbr1 --model virtio --config --live
+virsh attach-interface --domain vm7-2 --type bridge --source virbr2 --model virtio --config --live
+
+virsh attach-interface --domain vm7-3 --type bridge --source virbr1 --model virtio --config --live
+virsh attach-interface --domain vm7-3 --type bridge --source virbr2 --model virtio --config --live
+
+virsh attach-interface --domain vm7-4 --type bridge --source virbr1 --model virtio --config --live
+virsh attach-interface --domain vm7-4 --type bridge --source virbr2 --model virtio --config --live
+
+virsh attach-interface --domain vm7-5 --type bridge --source virbr1 --model virtio --config --live
+virsh attach-interface --domain vm7-5 --type bridge --source virbr2 --model virtio --config --live
+
+virsh attach-interface --domain vm7-6 --type bridge --source virbr1 --model virtio --config --live
+virsh attach-interface --domain vm7-6 --type bridge --source virbr2 --model virtio --config --live
+
+virsh attach-interface --domain vm7-7 --type bridge --source virbr1 --model virtio --config --live
+virsh attach-interface --domain vm7-7 --type bridge --source virbr2 --model virtio --config --live
+
 
 2.) Run the install_control_node playbook.
 
