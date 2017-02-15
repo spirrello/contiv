@@ -25,26 +25,38 @@ kubectl apply -f contiv.yaml
 
 6.) BGP
 
+
+Backup kube-dns deployment:
+kubectl get deployment/kube-dns -n kube-system -o json  > kube-dns.yaml
+
+Run this otherwise netplugin will restart continously:
+kubectl delete deployment/kube-dns -n kube-system
+
+Re-creating the kube-dns deployment ONLY if necessary:
+kubectl create -f kube-dns.yaml
+
+
 This is needed!
 netctl global set --fwd-mode routing    <==== Run Contiv in BGP L3 mode
 
-netctl net create -t default --subnet=20.1.1.0/24/24 default-net   <===== default subnet required
-
-If you need to recreate the kube-dns, run this procedure:
-kubectl get deployment/kube-dns -n kube-system -o json  > kube-dns.yaml
-kubectl delete deployment/kube-dns -n kube-system <===== Run this otherwise netplugin will restart continously
-# Re-creating the kube-dns deployment
-kubectl create -f kube-dns.yaml
+netctl net create -t default --subnet="20.1.1.0/24" default-net   <===== default subnet required
 
 netctl group create -t default default-net default-epg
 
+
+Start joining nodes
+kubeadm join --token=[token from output of kubeadm init] [ip of netmaster]
+
+
+
 Add BGP neighbor statements
-netctl bgp create [fqdn of worker] -router-ip="[data plan ip]]/24" --as="65002" --neighbor-as="65000" --neighbor="10.10.102.1"
-
-
+netctl bgp create [fqdn of worker] -router-ip="[data plan ip]]/24" --as="65002" --neighbor-as="65000" --neighbor="[ToR ip]"
 
 
 Playbooks
+
+install_cluster.yml:
+Installs necessary packages and repos to prepare the install.  Docker, K8s service, and initializes the 2nd NIC on all workers.
 
 install_control_node.yml:
 This playbook prepares the control for deploying Contiv.  It installs the necessary packages for the control node.
