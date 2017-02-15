@@ -27,9 +27,10 @@ kubectl apply -f contiv.yaml
 
 6.) BGP
 
-This is needed!  The following subnet can match the previous subnet used in the kubeadm process.
-netctl global set --fwd-mode routing
-netctl net create -t default --subnet=20.1.1.0/24/24 default-net
+This is needed!
+netctl global set --fwd-mode routing    <==== Run Contiv in BGP L3 mode
+netctl net create -t default --subnet=20.1.1.0/24/24 default-net   <===== default subnet required
+kubectl delete deployment/kube-dns -n kube-system   <===== Run this otherwise netplugin will restart continouslyl
 netctl group create -t default default-net default-epg
 
 Add BGP neighbor statements
