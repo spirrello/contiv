@@ -1,9 +1,6 @@
 ---
 
-# - name: Copy hosts template to Control node
-#   template: src=roles/control_node/templates/hosts dest=/etc/hosts
-
-- name: Grab official Contiv repo
+- name: fetch official Contiv repo
   git:
     repo: https://github.com/contiv/netplugin.git
     dest: /home/{{user_account}}/netplugin
@@ -18,25 +15,3 @@
 
 - name: Update contiv.yml interface for BGP
   shell: perl -pi -e 's/__VLAN_IF__/eth1/g' /home/{{user_account}}/netplugin/install/k8s/contiv/contiv.yaml
-
-#FROM HERE WE NEED TO MANUALLY INSTALL TO LEARN THE NEW PROCESS.
-
-
-# - name: Create cluster_defs.json
-#   template: src=roles/control_node/templates/cluster_template.j2 dest=/home/{{user_account}}/contiv/k8s/cluster_defs.json
-#   tags:
-#     - cluster_template
-
-# - name: Grab repo that contains the k8s info.
-#   shell: git clone https://github.com/jojimt/contrib -b contiv
-#   args:
-#     chdir: contiv/k8s
-
-# - name: Create cluster_defs.json
-#   template: src=roles/control_node/templates/cluster_template.j2 dest=/home/{{user_account}}/contiv/k8s/cluster_defs.json
-#   tags:
-#     - cluster_template
-
-# - name: Update permissions back to user_account
-#   shell: chown -R {{user_account}}:{{user_account}} contiv/
-

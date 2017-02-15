@@ -4,9 +4,7 @@ Instructions
 
 1.) Each node should have 2 total nics according to the documentation found here:
 http://contiv.github.io/documents/gettingStarted/networking/install-k8s.html
-Example:
-Add NICS
-virsh attach-interface --domain vm7-4 --type bridge --source virbr1 --model virtio --config --live
+
 
 2.) Run the install_control_node playbook.
 
@@ -29,12 +27,22 @@ kubectl apply -f contiv.yaml
 
 This is needed!
 netctl global set --fwd-mode routing    <==== Run Contiv in BGP L3 mode
+
 netctl net create -t default --subnet=20.1.1.0/24/24 default-net   <===== default subnet required
-kubectl delete deployment/kube-dns -n kube-system   <===== Run this otherwise netplugin will restart continouslyl
+
+If you need to recreate the kube-dns, run this procedure:
+kubectl get deployment/kube-dns -n kube-system -o json  > kube-dns.yaml
+kubectl delete deployment/kube-dns -n kube-system <===== Run this otherwise netplugin will restart continously
+# Re-creating the kube-dns deployment
+kubectl create -f kube-dns.yaml
+
 netctl group create -t default default-net default-epg
 
 Add BGP neighbor statements
-netctl bgp create [fqdn of worker] -router-ip="[data plan interface]]/24" --as="65002" --neighbor-as="65000" --neighbor="10.10.102.1"
+netctl bgp create [fqdn of worker] -router-ip="[data plan ip]]/24" --as="65002" --neighbor-as="65000" --neighbor="10.10.102.1"
+
+
+
 
 Playbooks
 
