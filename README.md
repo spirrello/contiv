@@ -19,13 +19,6 @@ https://github.com/contiv/netplugin/tree/master/install/k8s
 kubeadm init must be executed like this:
 kubeadm init --api-advertise-addresses [netmaster ip] --service-cidr 10.254.0.0/16   <===This subnet is the contiv service cidr.
 
-****Deploy contiv FIRST BEFORE JOINING NODES:
-kubectl apply -f contiv.yaml
-
-
-6.) BGP
-
-
 Backup kube-dns deployment:
 kubectl get deployment/kube-dns -n kube-system -o json  > kube-dns.yaml
 
@@ -35,6 +28,12 @@ kubectl delete deployment/kube-dns -n kube-system
 Re-creating the kube-dns deployment ONLY if necessary:
 kubectl create -f kube-dns.yaml
 
+
+****Deploy contiv FIRST BEFORE JOINING NODES:
+kubectl apply -f contiv.yaml
+
+
+6.) BGP
 
 This is needed!
 netctl global set --fwd-mode routing    <==== Run Contiv in BGP L3 mode
@@ -46,7 +45,6 @@ netctl group create -t default default-net default-epg
 
 Start joining nodes
 kubeadm join --token=[token from output of kubeadm init] [ip of netmaster]
-
 
 
 Add BGP neighbor statements
