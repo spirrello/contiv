@@ -19,7 +19,7 @@ virsh attach-interface --domain vm7-4 --type bridge --source virbr1 --model virt
 https://github.com/contiv/netplugin/tree/master/install/k8s
 
 kubeadm init must be executed like this:
-kubeadm init --api-advertise-addresses [netmaster ip] --service-cidr [insert arbitrary subnet]
+kubeadm init --api-advertise-addresses [netmaster ip] --service-cidr 10.254.0.0/16   <===This subnet is the contiv service cidr.
 
 ****Deploy contiv FIRST BEFORE JOINING NODES:
 kubectl apply -f contiv.yaml
@@ -29,7 +29,7 @@ kubectl apply -f contiv.yaml
 
 This is needed!  The following subnet can match the previous subnet used in the kubeadm process.
 netctl global set --fwd-mode routing
-netctl net create -t default --subnet=[insert arbitrary subnet]/24 default-net
+netctl net create -t default --subnet=20.1.1.0/24/24 default-net
 netctl group create -t default default-net default-epg
 
 Add BGP neighbor statements
