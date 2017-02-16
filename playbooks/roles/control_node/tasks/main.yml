@@ -8,7 +8,7 @@
 
 - name: fetch contiv
   get_url:
-    url: {{contiv_url}}
+    url: "{{contiv_url}}"
     dest: /home/{{user_account}}/contiv
     force: yes
   tags:
