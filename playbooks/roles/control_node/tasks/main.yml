@@ -6,13 +6,12 @@
 #     dest: /home/{{user_account}}/netplugin
 #     force: yes
 
-- name: fetch contiv
-  get_url:
-    url: https://github.com/contiv/install/releases/download/1.0.0-beta.2/contiv-full-1.0.0-beta.2.tgz
-    dest: /home/{{user_account}}/
-    force: yes
-  tags:
-    - fetch
+- name: fetch and untar contiv file.
+  unarchive:
+    src: {{contiv_url}}
+    dest: /home/{{user_account}}
+    remote_src: False
+    keep_newer: no
 # - name: Update permissions back to user_account
 #   shell: chown -R {{user_account}}:{{user_account}} netplugin/
 
