@@ -10,15 +10,18 @@
   shell: wget {{contiv_url}} -O /home/{{user_account}}/contiv.tgz
   tags:
     - fetch
-- name: untar contiv
-  unarchive:
-    src: /home/{{user_account}}/contiv.tgz
-    dest: /home/{{user_account}}
-    remote_src: True
+
+- file:
+    path: /home/{{user_account}}/contiv
+    state: directory
+
+- name: unzip contiv
+  shell: tar xf contiv.tgz -C contiv --strip-components=2
   tags:
     - untar
-# - name: Update permissions back to user_account
-#   shell: chown -R {{user_account}}:{{user_account}} netplugin/
+
+- name: Update permissions back to user_account
+  shell: chown -R {{user_account}}:{{user_account}} /home/{{user_account}}/contiv/*
 
 # - name: Update contiv.yml netmaster IP
 #   shell: perl -pi -e 's/__NETMASTER_IP__/{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}/g' /home/{{user_account}}/netplugin/install/k8s/contiv/contiv.yaml
