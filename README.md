@@ -1,5 +1,12 @@
 #Contiv
 
+
+Requirements:
+- Clean Centos 7 Install with yum update completed.
+- 2 NICs for each node
+- The 2nd NIC should not have an IP address assigned otherwise this will cause problems with ARP resolution.
+
+
 Instructions
 
 1.) Each node should have 2 total nics according to the documentation found here:
@@ -63,7 +70,5 @@ install_sshkeys.yml:
 This play book generates ssh keys for "user_account" on the "control_node" and distributes them across the workers.
 
 
-Requirements:
-Clean Centos 7 Install with yum update completed.
 
 
