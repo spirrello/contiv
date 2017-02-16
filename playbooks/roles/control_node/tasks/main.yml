@@ -9,8 +9,8 @@
 - name: fetch contiv
   get_url:
     url: "{{contiv_url}}"
-    dest: /home/{{user_account}}/contiv
-    force: yes
+    dest: /home/{{user_account}}
+    creates: /home/{{user_account}}/contiv
   tags:
     - fetch
 # - name: untar contiv
