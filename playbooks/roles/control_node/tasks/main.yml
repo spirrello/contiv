@@ -1,17 +1,23 @@
 ---
 
-- name: fetch official Contiv repo
-  git:
-    repo: https://github.com/contiv/netplugin.git
-    dest: /home/{{user_account}}/netplugin
-    force: yes
+# - name: fetch official Contiv repo
+#   git:
+#     repo: https://github.com/contiv/netplugin.git
+#     dest: /home/{{user_account}}/netplugin
+#     force: yes
 
-- name: Update permissions back to user_account
-  shell: chown -R {{user_account}}:{{user_account}} netplugin/
+- name: fetch contiv
+  fetch:
+    src: https://github.com/contiv/install/releases/download/1.0.0-beta.2/contiv-full-1.0.0-beta.2.tgz
+    dest: /home/{{user_account}}/
+    flat: yes
 
-- name: Update contiv.yml netmaster IP
-  shell: perl -pi -e 's/__NETMASTER_IP__/{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}/g' /home/{{user_account}}/netplugin/install/k8s/contiv/contiv.yaml
+# - name: Update permissions back to user_account
+#   shell: chown -R {{user_account}}:{{user_account}} netplugin/
+
+# - name: Update contiv.yml netmaster IP
+#   shell: perl -pi -e 's/__NETMASTER_IP__/{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}/g' /home/{{user_account}}/netplugin/install/k8s/contiv/contiv.yaml
 
 
-- name: Update contiv.yml interface for BGP
-  shell: perl -pi -e 's/__VLAN_IF__/eth1/g' /home/{{user_account}}/netplugin/install/k8s/contiv/contiv.yaml
+# - name: Update contiv.yml interface for BGP
+#   shell: perl -pi -e 's/__VLAN_IF__/eth1/g' /home/{{user_account}}/netplugin/install/k8s/contiv/contiv.yaml
