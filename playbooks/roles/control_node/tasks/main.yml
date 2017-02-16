@@ -8,7 +8,7 @@
 
 - name: fetch and untar contiv file.
   unarchive:
-    src: {{contiv_url}}
+    src: "{{contiv_url}}"
     dest: /home/{{user_account}}
     remote_src: False
     keep_newer: no
