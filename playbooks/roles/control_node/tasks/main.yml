@@ -7,8 +7,8 @@
 #     force: yes
 
 - name: fetch contiv
-  fetch:
-    src: https://github.com/contiv/install/releases/download/1.0.0-beta.2/contiv-full-1.0.0-beta.2.tgz
+  get_url:
+    url: https://github.com/contiv/install/releases/download/1.0.0-beta.2/contiv-full-1.0.0-beta.2.tgz
     dest: /home/{{user_account}}/
     flat: yes
 
