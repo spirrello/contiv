@@ -23,9 +23,11 @@
 - name: Update permissions back to user_account
   shell: chown -R {{user_account}}:{{user_account}} /home/{{user_account}}/contiv/*
 
-# - name: Update contiv.yml netmaster IP
-#   shell: perl -pi -e 's/__NETMASTER_IP__/{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}/g' /home/{{user_account}}/netplugin/install/k8s/contiv/contiv.yaml
+- name: Update contiv.yml netmaster IP
+  shell: perl -pi -e 's/__NETMASTER_IP__/{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}/g' /home/{{user_account}}/contiv/install/k8s/contiv/contiv.yaml
 
+- name: Update contiv_config.yml netmaster IP
+  shell: perl -pi -e 's/__NETMASTER_IP__/{{ hostvars[inventory_hostname]['ansible_eth0']['ipv4']['address'] }}/g' /home/{{user_account}}/contiv/install/k8s/contiv/contiv_config.yaml
 
-# - name: Update contiv.yml interface for BGP
-#   shell: perl -pi -e 's/__VLAN_IF__/eth1/g' /home/{{user_account}}/netplugin/install/k8s/contiv/contiv.yaml
+- name: Update contiv.yml interface for BGP
+  shell: perl -pi -e 's/__VLAN_IF__/eth1/g' /home/{{user_account}}/contiv/install/k8s/contiv/contiv.yaml
