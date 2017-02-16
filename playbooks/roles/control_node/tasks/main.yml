@@ -7,10 +7,7 @@
 #     force: yes
 
 - name: fetch contiv
-  get_url:
-    url: "{{contiv_url}}"
-    dest: /home/{{user_account}}
-    creates: /home/{{user_account}}/contiv
+  shell: wget {{contiv_url}} -O /home/{{user_account}}/contiv.tgz
   tags:
     - fetch
 # - name: untar contiv
