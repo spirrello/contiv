@@ -6,12 +6,18 @@
 #     dest: /home/{{user_account}}/netplugin
 #     force: yes
 
-- name: fetch and untar contiv file.
-  unarchive:
-    src: "{{contiv_url}}"
-    dest: /home/{{user_account}}
-    remote_src: True
-  
+- name: fetch contiv
+  get_url:
+    url: {{contiv_url}}
+    dest: /home/{{user_account}}/contiv
+    force: yes
+  tags:
+    - fetch
+# - name: untar contiv
+#   unarchive:
+#     src: /home/{{user_account}}
+#     dest: /home/{{user_account}}
+#     remote_src: False
 # - name: Update permissions back to user_account
 #   shell: chown -R {{user_account}}:{{user_account}} netplugin/
 
