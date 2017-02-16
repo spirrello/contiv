@@ -10,11 +10,13 @@
   shell: wget {{contiv_url}} -O /home/{{user_account}}/contiv.tgz
   tags:
     - fetch
-# - name: untar contiv
-#   unarchive:
-#     src: /home/{{user_account}}
-#     dest: /home/{{user_account}}
-#     remote_src: False
+- name: untar contiv
+  unarchive:
+    src: /home/{{user_account}}/contiv.tgz
+    dest: /home/{{user_account}}
+    remote_src: True
+  tags:
+    - untar
 # - name: Update permissions back to user_account
 #   shell: chown -R {{user_account}}:{{user_account}} netplugin/
 
