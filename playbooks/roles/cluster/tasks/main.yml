@@ -1,11 +1,11 @@
 ---
 
-- name: remove dhcp from eth1
-  shell: perl -pi -e 's/BOOTPROTO\=dhcp/BOOTPROTO=none/g' /etc/sysconfig/network-scripts/ifcfg-eth1
-  when: ansible_distribution == 'CentOS'
+# - name: remove dhcp from eth1
+#   shell: perl -pi -e 's/BOOTPROTO\=dhcp/BOOTPROTO=none/g' /etc/sysconfig/network-scripts/ifcfg-eth1
+#   when: ansible_distribution == 'CentOS'
 
 - name: update NIC to ONBOOT=yes
-  shell: perl -pi -e 's/ONBOOT\=no/ONBOOT\=yes/g' /etc/sysconfig/network-scripts/ifcfg-eth1
+  shell: perl -pi -e 's/ONBOOT\=no/ONBOOT\=yes/g' /etc/sysconfig/network-scripts/ifcfg-eno33557248
   when: ansible_distribution == 'CentOS'
 
 # - name: bring up eth1
