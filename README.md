@@ -58,6 +58,14 @@ Add BGP neighbor statements
 netctl bgp create [fqdn of worker] -router-ip="[data plan ip]]/24" --as="65002" --neighbor-as="65000" --neighbor="[ToR ip]"
 
 
+
+Side notes
+- Current bug in Contiv won't allow it to restore after rebooting a worker node.  Need to run this procedure after a reboot:
+	1.) modprobe openvswitch within worker node
+	2.) kubectl get pod -n kube-system
+	3.) kubectl delete pod/netplugin-... -n kube-system
+
+
 Playbooks
 
 install_cluster.yml:
