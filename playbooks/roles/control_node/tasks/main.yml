@@ -1,11 +1,5 @@
 ---
 
-# - name: fetch official Contiv repo
-#   git:
-#     repo: https://github.com/contiv/netplugin.git
-#     dest: /home/{{user_account}}/netplugin
-#     force: yes
-
 - name: fetch contiv
   shell: wget {{contiv_url}} -O /home/{{user_account}}/contiv.tgz
   tags:

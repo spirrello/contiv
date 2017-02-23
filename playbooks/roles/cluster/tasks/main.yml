@@ -1,18 +1,8 @@
 ---
 
-# - name: remove dhcp from eth1
-#   shell: perl -pi -e 's/BOOTPROTO\=dhcp/BOOTPROTO=none/g' /etc/sysconfig/network-scripts/ifcfg-eth1
-#   when: ansible_distribution == 'CentOS'
-
 - name: update NIC to ONBOOT=yes
   shell: perl -pi -e 's/ONBOOT\=no/ONBOOT\=yes/g' /etc/sysconfig/network-scripts/ifcfg-eno33557248
   when: ansible_distribution == 'CentOS'
-
-# - name: bring up eth1
-#   shell:  ifconfig eth1 up
-#   when: ansible_distribution == 'CentOS'
-# - name: restart network service
-#   service: name=network state=restarted
 
 - name: Copy hosts template to entire cluster
   template: src=roles/cluster/templates/hosts.j2 dest=/etc/hosts
