@@ -10,9 +10,9 @@
 
 
 {% for host in groups['control_node'] %}
-   {{ hostvars[host]['ansible_eth0']['ipv4']['address'] }} netmaster
+   {{ hostvars[host]['ansible_eno16777984']['ipv4']['address'] }} netmaster
 {% endfor %}
 {% for host in groups['cluster'] %}
-   {{ hostvars[host]['ansible_eth0']['ipv4']['address'] }} {{ hostvars[host]['ansible_nodename'] }} 
+   {{ hostvars[host]['ansible_eno16777984']['ipv4']['address'] }} {{ hostvars[host]['ansible_nodename'] }} 
 {% endfor %}
 
