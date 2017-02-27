@@ -2,16 +2,14 @@
 
 
 Requirements:
-- Clean Centos 7 Install with yum update completed.
+- Clean Centos 7 / Ubuntu install.
 - 2 NICs for each node
-- The 2nd NIC should not have an IP address assigned otherwise this will cause problems with ARP resolution.
+- The 2nd NIC should not have an IP address assigned otherwise this will cause problems.  OVS will assign the IP via Inb01.
 
 
 Instructions
 
-1.) Each node should have 2 total nics according to the documentation found here:
-http://contiv.github.io/documents/gettingStarted/networking/install-k8s.html
-
+1.) Each node should have 2 total nics.
 
 2.) Run the install_control_node playbook.
 
@@ -21,7 +19,7 @@ http://contiv.github.io/documents/gettingStarted/networking/install-k8s.html
 
 
 5.) Browse to this page and begin the instructions.
-https://github.com/contiv/netplugin/tree/master/install/k8s
+https://github.com/contiv/install
 
 kubeadm init must be executed like this:
 kubeadm init --api-advertise-addresses [netmaster ip] --service-cidr 10.254.0.0/16   <===This subnet is the contiv service cidr.

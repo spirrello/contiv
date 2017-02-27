@@ -1,42 +1,87 @@
 ---
 
-- name: remove dhcp from eth1 / eno33557248
-  shell: perl -pi -e 's/BOOTPROTO\=dhcp/BOOTPROTO=none/g' /etc/sysconfig/network-scripts/ifcfg-eno33557248
+- name: Centos | remove dhcp from nic2
+  shell: perl -pi -e 's/BOOTPROTO\=dhcp/BOOTPROTO=none/g' /etc/sysconfig/network-scripts/ifcfg-{{nic2}}
   when: ansible_distribution == 'CentOS'
 
-- name: update NIC to ONBOOT=yes
-  shell: perl -pi -e 's/ONBOOT\=no/ONBOOT\=yes/g' /etc/sysconfig/network-scripts/ifcfg-eno33557248
+- name: Centos | update nic2 to ONBOOT=yes
+  shell: perl -pi -e 's/ONBOOT\=no/ONBOOT\=yes/g' /etc/sysconfig/network-scripts/ifcfg-{{nic2}}
   when: ansible_distribution == 'CentOS'
 
-- name: bring up eth1
-  shell:  ifconfig eno33557248 up
+- name: Centos | bring up nic2
+  shell: ifconfig {{nic2}} up
   when: ansible_distribution == 'CentOS'
 
-- name: Copy hosts template to entire cluster
+- name: Ubuntu | add nic2 interface
+  lineinfile:
+    dest: /etc/network/interfaces
+    state: present
+    insertafter: EOF
+    line: auto {{nic2}}
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Ubuntu | add dhcp to nic2 interface
+  lineinfile:
+    dest: /etc/network/interfaces
+    state: present 
+    insertafter: EOF
+    line: iface {{nic2}} inet dhcp
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Ubuntu | bring up nic2
+  shell: ifconfig {{nic2}} up
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Copy hosts template to entire cluster 
   template: src=roles/cluster/templates/hosts.j2 dest=/etc/hosts
   tags:
-     - host
+     - hosts
 
-- name: Add Kubernetes repo
-  template: src=roles/cluster/templates/kubernetes.repo dest=/etc/yum.repos.d/kubernetes.repo force=yes
+- name: Centos | Add Kubernetes repo
+  template: src=roles/cluster/templates/centos_kubernetes.repo dest=/etc/yum.repos.d/kubernetes.repo force=yes
+  when: ansible_distribution == 'CentOS'
 
-- name: install docker
-  yum: name=docker state=latest
+- name: Ubuntu | Add K8s key
+  shell: curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+  when: ansible_distribution == 'Ubuntu'
 
-- name: install kubelet
-  yum: name=kubelet state=latest
 
-- name: install kubeadm
-  yum: name=kubeadm state=latest
+- name: Ubuntu | Add K8s repo file
+  file:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    state: touch
+  when: ansible_distribution == 'Ubuntu'
 
-- name: install kubectl
-  yum: name=kubectl state=latest
+- name: Ubuntu | Add Kubernetes repo
+  lineinfile:
+    dest: /etc/apt/sources.list.d/kubernetes.list
+    state: present
+    line: deb http://apt.kubernetes.io/ kubernetes-xenial main
+  when: ansible_distribution == 'Ubuntu'
 
-- name: install kubernetes-cni
-  yum: name=kubernetes-cni state=latest
+- name: Centos | install docker,kubelet,kubeadm,kubectl,kubernetes-cni
+  yum: name=docker,kubelet,kubeadm,kubectl,kubernetes-cni state=latest
+  when: ansible_distribution == 'CentOS'
+  tags:
+    - centos_packages
+
+
+- name: Ubuntu | apt-get update
+  apt:
+    update_cache: yes
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Ubuntu | install docker,kubelet,kubeadm,kubectl,kubernetes-cni
+  apt:
+    name: docker.io,kubelet,kubeadm,kubectl,kubernetes-cni 
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+  tags:
+    - ubuntu_packages
 
 - name: start and enable docker service.
   service: name=docker state=started enabled=yes
+  when: ansible_distribution == 'CentOS'
 
 - name: start and enable kubelet service.
   service: name=kubelet state=started enabled=yes

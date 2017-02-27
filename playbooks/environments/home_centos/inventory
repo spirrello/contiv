@@ -6,16 +6,16 @@
 vm7-1
 vm7-2
 vm7-3
-vm7-4 
+#vm7-4 
 #vm7-5 
 #vm7-6
 
 [control_node]
 vm7-1
 
-#[workers]
-#vm7-2
-#vm7-3
-#vm7-4
+[workers]
+vm7-2
+vm7-3
+vm7-4
 #vm7-5
 #vm7-6
