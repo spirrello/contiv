@@ -10,7 +10,7 @@ contiv_url: https://github.com/contiv/install/releases/download/1.0.0-beta.3/con
 
 
 ###### control / mgt interface 
-nic1: ens160
+nic1: eno16777984
 
 ###### interface for BGP peering
-nic2: ens192
+nic2: eno33557248
