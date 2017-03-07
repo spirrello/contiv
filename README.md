@@ -24,21 +24,10 @@ https://github.com/contiv/install
 kubeadm init must be executed like this:
 kubeadm init --api-advertise-addresses [netmaster ip] --service-cidr 10.254.0.0/16   <===This subnet is the contiv service cidr.
 
-Backup kube-dns deployment:
-kubectl get deployment/kube-dns -n kube-system -o json  > kube-dns.yaml
+6.) login to the netmaster and run the following command from the contiv folder previously downloaded:
+./install/k8s/install.sh -n $CONTIV_MASTER where $CONTIV_MASTER is the Contiv proxy IP
 
-Run this otherwise netplugin will restart continously:
-kubectl delete deployment/kube-dns -n kube-system
-
-Re-creating the kube-dns deployment ONLY if necessary:
-kubectl create -f kube-dns.yaml
-
-
-****Deploy contiv FIRST BEFORE JOINING NODES:
-kubectl apply -f contiv.yaml
-
-
-6.) BGP
+7.) BGP
 
 This is needed!
 netctl global set --fwd-mode routing    <==== Run Contiv in BGP L3 mode
