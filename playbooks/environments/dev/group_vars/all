@@ -1,0 +1,16 @@
+######## Global Variables #######
+
+user_account: root
+
+
+control_node: at4d-lvk8s01
+
+
+contiv_url: https://github.com/contiv/install/releases/download/1.0.0-beta.3/contiv-full-1.0.0-beta.3.tgz
+
+
+###### control / mgt interface 
+nic1: eth1
+
+###### interface for BGP peering
+nic2: eth2

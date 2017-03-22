@@ -1,0 +1,15 @@
+#################################
+#    Contiv Inventory           #
+#################################
+
+
+[control_node]
+at4d-lvk8s01
+
+
+[cluster]
+at4d-lvk8s01
+at4d-lvk8s02
+at4d-lvk8s03
+at4d-lvk8s04
+at4d-lvk8s05
